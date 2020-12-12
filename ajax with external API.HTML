@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		.box{
+			background-color: lightgrey;
+			display: flex;
+			padding: 10px;
+			margin-bottom: 10px;
+		}
+		.box ol{
+			list-style: none;
+			padding: 5px;
+		}
+}
+	</style>
+	</head>
+<body>
+<button id="btn">Fetch Github Data</button><span class="loader"></span><br>
+<h1>Github Users:</h1><br>
+<p id="demo"></p>
+<script type="text/javascript">
+	document.getElementById('btn').addEventListener("click",loaddata);
+	function loaddata(){
+		var ajax=new XMLHttpRequest();
+		ajax.open("GET","https://api.github.com/users",true);
+
+		
+
+		ajax.onreadystatechange=function(){
+		
+			if(this.readyState==4 && this.status==200){
+				var obj=JSON.parse(this.responseText);
+				var txt="";
+				for(var j in obj){
+					txt+="<div class='box'>"+"<img src="+obj[j].avatar_url+" height='70' width='70'</img>"+"<ol><li>"+"<b> Name: </b>"+obj[j].login+"</li><li><b> UserId: </b><a href="+obj[j].html_url+" target='_blank'>"+obj[j].html_url+"</a></li></ol></div>";
+				}
+
+			}
+
+			document.getElementById('demo').innerHTML=txt;
+		}
+		ajax.send();
+	}
+</script>
+</body>
+</html>
