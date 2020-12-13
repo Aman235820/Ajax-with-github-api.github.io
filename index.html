@@ -19,7 +19,8 @@
 <body>
 <button id="btn">Fetch Github Data</button><span class="loader"></span><br>
 <h1>Github Users:</h1><br>
-<p id="demo"></p>
+<p id="demo"></p><br>
+<p id="demo1"></p>
 <script type="text/javascript">
 	document.getElementById('btn').addEventListener("click",loaddata);
 	function loaddata(){
@@ -36,9 +37,13 @@
 				for(var j in obj){
 					txt+="<div class='box'>"+"<img src="+obj[j].avatar_url+" height='70' width='70'</img>"+"<ol><li>"+"<b> Name: </b>"+obj[j].login+"</li><li><b> UserId: </b><a href="+obj[j].html_url+" target='_blank'>"+obj[j].html_url+"</a></li></ol></div>";
 				}
-
+				var x;
+				x="<h2>Header Information of resource:</h2><br>"+this.getAllResponseHeaders();   
+				document.getElementById('demo1').innerHTML=x;
 			}
-
+			else if(this.status==404){
+				console.error("Request not found");
+			}
 			document.getElementById('demo').innerHTML=txt;
 		}
 		ajax.send();
